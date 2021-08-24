@@ -185,4 +185,19 @@ public class GameServiceTest {
         assertEquals(moves.get(moves.size() - 1), gameMove);
     }
 
+    @Test
+    public void play_game_not_existant() {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.empty());
+
+        GameMove gameMove = new GameMove(p1Id, 0, 0);
+
+        Exception exception = assertThrows(TicTacToeException.class, () -> {
+            gameService.play(gameId, gameMove).getMovesHistory();
+        });
+
+        assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
+    }
+
 }
