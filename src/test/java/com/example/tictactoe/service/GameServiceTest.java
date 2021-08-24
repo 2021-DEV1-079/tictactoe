@@ -200,4 +200,20 @@ public class GameServiceTest {
         assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
     }
 
+    @Test
+    public void play_game_no_secondPlayerYet() {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1Id)));
+
+        GameMove gameMove = new GameMove(p1Id, 0, 0);
+
+        Exception exception = assertThrows(TicTacToeException.class, () -> {
+            gameService.play(gameId, gameMove);
+        });
+
+        assertTrue(exception.getMessage().contains("Still awaiting second player."));
+
+    }
+
 }
