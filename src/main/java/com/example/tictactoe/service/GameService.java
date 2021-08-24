@@ -98,13 +98,43 @@ public class GameService {
             return;
         }
 
-        if (playerHasWonOblique(lastMove, gameBoard)) {
+        if (playerHasWonObliquePositiveSlope(lastMove, gameBoard) || playerHasWonObliqueNegativeSlope(lastMove, gameBoard)) {
             game.setGameStatus(potentialWinnerStatus);
         }
 
     }
 
-    private boolean playerHasWonOblique(GameMove lastMove, UUID[][] gameBoard) {
+    private boolean playerHasWonObliqueNegativeSlope(GameMove lastMove, UUID[][] gameBoard) {
+        var playerHasWon = true;
+        var streakCount = 0;
+        var xOfLastMove = lastMove.getX();
+        var yOfLastMove = lastMove.getY();
+
+        while (yOfLastMove >= 0 && xOfLastMove < appConfig.getWidth() && streakCount < appConfig.getStreakLegth() && playerHasWon) {
+            playerHasWon = lastMove.getAssociatedPlayerId().equals(gameBoard[xOfLastMove][yOfLastMove]);
+            if (playerHasWon) {
+                streakCount++;
+            }
+            xOfLastMove++;
+            yOfLastMove--;
+        }
+
+        xOfLastMove = lastMove.getX() - 1;
+        yOfLastMove = lastMove.getY() + 1;
+        playerHasWon = true;
+        while (yOfLastMove < appConfig.getHeight() && xOfLastMove >= 0 && streakCount < appConfig.getStreakLegth() && playerHasWon) {
+            playerHasWon = lastMove.getAssociatedPlayerId().equals(gameBoard[xOfLastMove][yOfLastMove]);
+            if (playerHasWon) {
+                streakCount++;
+            }
+            xOfLastMove--;
+            yOfLastMove++;
+        }
+
+        return streakCount >= appConfig.getStreakLegth();
+    }
+
+    private boolean playerHasWonObliquePositiveSlope(GameMove lastMove, UUID[][] gameBoard) {
         var playerHasWon = true;
         var streakCount = 0;
         var xOfLastMove = lastMove.getX();
