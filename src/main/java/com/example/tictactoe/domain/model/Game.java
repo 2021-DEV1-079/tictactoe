@@ -11,6 +11,6 @@ public class Game {
     }
 
     public UUID getGameId() {
-        return null;
+        return id;
     }
 }
