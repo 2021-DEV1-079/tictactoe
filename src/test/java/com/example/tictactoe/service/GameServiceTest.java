@@ -243,4 +243,21 @@ public class GameServiceTest {
         assertFalse(gameService.isNextMoveValid(gameId, gameMove));
     }
 
+    @Test
+    public void isNextMoveValid_second_move_position_already_taken() throws TicTacToeException {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Game game = new Game(gameId, p1Id);
+        game.playMove(new GameMove(p1Id, 0, 0));
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(game));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        game = gameService.addPlayerToGame(gameId);
+
+        GameMove gameMove = new GameMove(game.getPlayerTwoId(), 0, 0);
+
+        assertFalse(gameService.isNextMoveValid(gameId, gameMove));
+    }
+
+
 }
