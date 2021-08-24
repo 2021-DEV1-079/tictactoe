@@ -131,4 +131,16 @@ public class GameServiceTest {
         assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
     }
 
+    @Test
+    public void isNextMoveValid_wrong_player_firstMove() throws TicTacToeException {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1Id)));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.addPlayerToGame(gameId);
+
+        GameMove gameMove = new GameMove(game.getPlayerTwoId(), 0, 0);
+        assertFalse(gameService.isNextMoveValid(gameId, gameMove));
+    }
 }

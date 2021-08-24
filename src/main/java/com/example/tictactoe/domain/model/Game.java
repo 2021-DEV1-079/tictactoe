@@ -26,7 +26,7 @@ public class Game {
         return playerOneId;
     }
 
-    public Object getPlayerTwoId() {
+    public UUID getPlayerTwoId() {
         return playerTwoId;
     }
 
