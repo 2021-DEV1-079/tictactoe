@@ -143,4 +143,10 @@ public class GameServiceTest {
         GameMove gameMove = new GameMove(game.getPlayerTwoId(), 0, 0);
         assertFalse(gameService.isNextMoveValid(gameId, gameMove));
     }
+
+    @Test
+    public void isNextMoveValid_invalid_x_position_too_high() throws TicTacToeException {
+        GameMove gameMove = new GameMove(UUID.randomUUID(), 3, 0);
+        assertFalse(gameService.isNextMoveValid(UUID.randomUUID(), gameMove));
+    }
 }
