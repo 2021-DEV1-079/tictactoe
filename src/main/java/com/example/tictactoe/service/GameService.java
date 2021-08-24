@@ -5,6 +5,7 @@ import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,7 +29,12 @@ public class GameService {
         return gameDao.save(game);
     }
 
-    private Game getGame(UUID gameId){
-        return gameDao.getById(gameId).get();
+    public Game getGame(UUID gameId) throws TicTacToeException {
+        Optional<Game> optionalGame = gameDao.getById(gameId);
+        if (optionalGame.isPresent()) {
+            return optionalGame.get();
+        } else {
+            throw new TicTacToeException("No game associated with given gameId: " + gameId);
+        }
     }
 }
