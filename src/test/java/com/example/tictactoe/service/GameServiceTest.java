@@ -35,4 +35,16 @@ public class GameServiceTest {
         Pattern pattern = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$");
         assertTrue(pattern.asPredicate().test(game.getGameId().toString()));
     }
+
+    @Test
+    public void create_valid_initial_game_firstPlayerId_is_UUID() {
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        //when
+        Game game = gameService.createNewGame();
+
+        //test
+        Pattern pattern = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$");
+        assertTrue(pattern.asPredicate().test(game.getPlayerOneId().toString()));
+    }
 }
