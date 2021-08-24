@@ -6,6 +6,7 @@ public class Game {
 
     private UUID id;
     private UUID playerOneId;
+    private UUID playerTwoId;
 
 
     public Game(UUID id, UUID playerOneId) {
@@ -19,5 +20,9 @@ public class Game {
 
     public UUID getPlayerOneId() {
         return playerOneId;
+    }
+
+    public Object getPlayerTwoId() {
+        return playerTwoId;
     }
 }

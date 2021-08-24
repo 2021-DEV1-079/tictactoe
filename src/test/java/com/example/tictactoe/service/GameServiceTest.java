@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.regex.Pattern;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -44,5 +45,15 @@ public class GameServiceTest {
 
         Pattern pattern = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$");
         assertTrue(pattern.asPredicate().test(game.getPlayerOneId().toString()));
+    }
+
+
+    @Test
+    public void creates_valid_initial_game_secondPlayerId_is_null() {
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.createNewGame();
+
+        assertNull(game.getPlayerTwoId());
     }
 }
