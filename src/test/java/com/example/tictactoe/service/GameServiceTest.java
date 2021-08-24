@@ -411,7 +411,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void gettStatus_is_draw() throws TicTacToeException {
+    public void getStatus_is_draw() throws TicTacToeException {
         UUID gameId = UUID.randomUUID();
         UUID p1Id = UUID.randomUUID();
         Game game = new Game(gameId, p1Id);

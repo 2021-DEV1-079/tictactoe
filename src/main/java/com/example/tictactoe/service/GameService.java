@@ -100,6 +100,11 @@ public class GameService {
 
         if (playerHasWonObliquePositiveSlope(lastMove, gameBoard) || playerHasWonObliqueNegativeSlope(lastMove, gameBoard)) {
             game.setGameStatus(potentialWinnerStatus);
+            return;
+        }
+
+        if (numberOfMoves == appConfig.getHeight() * appConfig.getWidth()) {
+            game.setGameStatus(GameStatus.draw);
         }
 
     }
