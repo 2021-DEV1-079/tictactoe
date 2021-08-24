@@ -39,7 +39,8 @@ public class GameService {
         }
     }
 
-    public boolean isNextMoveValid(UUID gameId, GameMove gameMove) {
-        return false;
+    public boolean isNextMoveValid(UUID gameId, GameMove gameMove) throws TicTacToeException {
+        var game = getGame(gameId);
+        return game.getMovesHistory().isEmpty();
     }
 }

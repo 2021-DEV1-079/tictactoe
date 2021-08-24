@@ -108,7 +108,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void isNextMoveValid_firstMove_game_exists_valid_positions() {
+    public void isNextMoveValid_firstMove_game_exists_valid_positions() throws TicTacToeException {
         UUID gameId = UUID.randomUUID();
         UUID p1Id = UUID.randomUUID();
         Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1Id)));
