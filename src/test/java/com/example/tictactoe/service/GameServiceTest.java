@@ -69,7 +69,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void addPlayer_adds_palyer_to_valid_game() {
+    public void addPlayer_adds_palyer_to_valid_game() throws TicTacToeException {
         UUID gameId = UUID.randomUUID();
         Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, UUID.randomUUID())));
         Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
@@ -82,7 +82,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void addPlayer_throws_exception_player_already_added() {
+    public void addPlayer_throws_exception_player_already_added() throws TicTacToeException {
         UUID gameId = UUID.randomUUID();
         Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, UUID.randomUUID())));
 
