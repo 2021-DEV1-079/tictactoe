@@ -457,6 +457,6 @@ public class GameServiceTest {
         Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
         gameService.addPlayerToGame(gameId);
 
-        assertEquals(gameService.getGameState(gameId).getNextPlayer(), p1);
+        assertEquals(p1, gameService.getGameState(gameId).getNextPlayer());
     }
 }

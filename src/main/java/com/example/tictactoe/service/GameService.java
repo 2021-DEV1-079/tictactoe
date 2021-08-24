@@ -201,7 +201,8 @@ public class GameService {
         return playerHasWon;
     }
 
-    public GameState getGameState(UUID gameId) {
-        return null;
+    public GameState getGameState(UUID gameId) throws TicTacToeException {
+        var game = getGame(gameId);
+        return new GameState(game);
     }
 }
