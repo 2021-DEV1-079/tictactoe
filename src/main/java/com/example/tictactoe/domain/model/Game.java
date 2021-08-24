@@ -5,10 +5,12 @@ import java.util.UUID;
 public class Game {
 
     private UUID id;
+    private UUID playerOneId;
 
 
-    public Game(UUID id) {
+    public Game(UUID id, UUID playerOneId) {
         this.id = id;
+        this.playerOneId = playerOneId;
     }
 
     public UUID getGameId() {
@@ -16,6 +18,6 @@ public class Game {
     }
 
     public UUID getPlayerOneId() {
-        return null;
+        return playerOneId;
     }
 }
