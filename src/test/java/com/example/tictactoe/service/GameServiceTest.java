@@ -11,6 +11,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -168,4 +169,20 @@ public class GameServiceTest {
         GameMove gameMove = new GameMove(UUID.randomUUID(), 0, -1);
         assertFalse(gameService.isNextMoveValid(UUID.randomUUID(), gameMove));
     }
+
+    @Test
+    public void play_game_move_added() throws TicTacToeException {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1Id)));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        gameService.addPlayerToGame(gameId);
+
+        GameMove gameMove = new GameMove(p1Id, 0, 0);
+
+        List<GameMove> moves = gameService.play(gameId, gameMove).getMovesHistory();
+        assertEquals(moves.get(moves.size() - 1), gameMove);
+    }
+
 }

@@ -55,4 +55,8 @@ public class GameService {
     private boolean arePositionsInvalid(GameMove gameMove) {
         return gameMove.getX() < 0 || appConfig.getWidth() <= gameMove.getX() || gameMove.getY() < 0 || appConfig.getHeight() <= gameMove.getY();
     }
+
+    public Game play(UUID gameId, GameMove gameMove) {
+        return null;
+    }
 }
