@@ -6,6 +6,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AppConfig {
     int width = 3;
     int height = 3;
+    int streakLegth = 3;
+
+    public AppConfig(int width, int height, int streakLegth) {
+        this.width = width;
+        this.height = height;
+        this.streakLegth = streakLegth;
+    }
+
+    public AppConfig() {
+    }
 
     public int getWidth() {
         return width;
@@ -23,4 +33,11 @@ public class AppConfig {
         this.height = height;
     }
 
+    public int getStreakLegth() {
+        return streakLegth;
+    }
+
+    public void setStreakLegth(int streakLegth) {
+        this.streakLegth = streakLegth;
+    }
 }

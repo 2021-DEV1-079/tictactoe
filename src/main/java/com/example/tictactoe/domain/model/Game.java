@@ -62,4 +62,8 @@ public class Game {
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
+
+    public UUID[][] getBoard() {
+        return this.board;
+    }
 }

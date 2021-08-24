@@ -73,7 +73,34 @@ public class GameService {
         if (game.getPlayerTwoId() == null) {
             throw new TicTacToeException("Still awaiting second player.");
         }
-        game.playMove(gameMove);
-        return gameDao.save(game);
+        if (isNextMoveValid(gameId, gameMove)) {
+            game.playMove(gameMove);
+            updateGameStatus(game);
+            return gameDao.save(game);
+        } else {
+            throw new TicTacToeException("Cannot play invalid move");
+        }
+    }
+
+    private void updateGameStatus(Game game) {
+        int numberOfMoves = game.getMovesHistory().size();
+        GameMove lastMove = game.getMovesHistory().get(numberOfMoves - 1);
+        GameStatus potentialWinnerStatus = lastMove.getAssociatedPlayerId() == game.getPlayerOneId() ? GameStatus.p1Won : GameStatus.p2Won;
+        var gameBoard = game.getBoard();
+
+        var playerHasWon = true;
+        var streakCount = 0;
+        var yOfLastMove = lastMove.getY();
+        var x = 0;
+        while (x < appConfig.getWidth() && streakCount < appConfig.getStreakLegth() && playerHasWon) {
+            playerHasWon = lastMove.getAssociatedPlayerId().equals(gameBoard[x][yOfLastMove]);
+            if (playerHasWon) {
+                streakCount++;
+            }
+            x++;
+        }
+        if( playerHasWon){
+            game.setGameStatus(potentialWinnerStatus);
+        }
     }
 }
