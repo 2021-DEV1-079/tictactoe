@@ -88,6 +88,34 @@ public class GameService {
         GameStatus potentialWinnerStatus = lastMove.getAssociatedPlayerId() == game.getPlayerOneId() ? GameStatus.p1Won : GameStatus.p2Won;
         var gameBoard = game.getBoard();
 
+        if (playerHasWonHorizontal(lastMove, gameBoard)) {
+            game.setGameStatus(potentialWinnerStatus);
+            return;
+        }
+
+        if (playerHasWonVertical(lastMove, gameBoard)) {
+            game.setGameStatus(potentialWinnerStatus);
+        }
+
+    }
+
+
+    private boolean playerHasWonVertical(GameMove lastMove, UUID[][] gameBoard) {
+        var playerHasWon = true;
+        var streakCount = 0;
+        var xOfLastMove = lastMove.getX();
+        var y = 0;
+        while (y < appConfig.getHeight() && streakCount < appConfig.getStreakLegth() && playerHasWon) {
+            playerHasWon = lastMove.getAssociatedPlayerId().equals(gameBoard[xOfLastMove][y]);
+            if (playerHasWon) {
+                streakCount++;
+            }
+            y++;
+        }
+        return playerHasWon;
+    }
+
+    private boolean playerHasWonHorizontal(GameMove lastMove, UUID[][] gameBoard) {
         var playerHasWon = true;
         var streakCount = 0;
         var yOfLastMove = lastMove.getY();
@@ -99,8 +127,6 @@ public class GameService {
             }
             x++;
         }
-        if( playerHasWon){
-            game.setGameStatus(potentialWinnerStatus);
-        }
+        return playerHasWon;
     }
 }
