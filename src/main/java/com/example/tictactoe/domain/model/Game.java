@@ -1,5 +1,6 @@
 package com.example.tictactoe.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -9,6 +10,7 @@ public class Game {
     private UUID id;
     private UUID playerOneId;
     private UUID playerTwoId;
+    private List<GameMove> movesHistory = new ArrayList<>();
 
 
     public Game(UUID id, UUID playerOneId) {
@@ -29,6 +31,6 @@ public class Game {
     }
 
     public List<GameMove> getMovesHistory() {
-        return null;
+        return movesHistory;
     }
 }
