@@ -13,6 +13,7 @@ public class Game {
     private UUID playerTwoId;
     private List<GameMove> movesHistory = new ArrayList<>();
     private UUID[][] board;
+    private GameStatus gameStatus = GameStatus.awaitingSecondPlayer;
 
     public Game(UUID id, UUID playerOneId) {
         this(id, playerOneId, 3, 3);
@@ -55,7 +56,7 @@ public class Game {
     }
 
     public GameStatus getStatus() {
-        return null;
+        return gameStatus;
     }
 
 }
