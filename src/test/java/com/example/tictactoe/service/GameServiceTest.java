@@ -465,11 +465,11 @@ public class GameServiceTest {
     public void getGamestate_next_player_is_second_after_firstMove() throws TicTacToeException {
         UUID gameId = UUID.randomUUID();
         UUID p1 = UUID.randomUUID();
-        UUID p2 = UUID.randomUUID();
         Game game = new Game(gameId, p1);
         Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(game));
         Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
         game = gameService.addPlayerToGame(gameId);
+        var p2 = game.getPlayerTwoId();
 
         GameMove p1m1 = new GameMove(p1, 0, 0);
         game = gameService.play(gameId, p1m1);
