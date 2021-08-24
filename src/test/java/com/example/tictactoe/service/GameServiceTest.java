@@ -1,6 +1,7 @@
 package com.example.tictactoe.service;
 
 import com.example.tictactoe.dao.GameDao;
+import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,5 +79,18 @@ public class GameServiceTest {
         Pattern pattern = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$");
         assertNotNull(game.getPlayerTwoId());
         assertTrue(pattern.asPredicate().test(game.getPlayerTwoId().toString()));
+    }
+
+    @Test
+    public void addPlayer_throws_exception_player_already_added() {
+        UUID gameId = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, UUID.randomUUID())));
+
+        gameService.addPlayerToGame(gameId);
+        Exception exception = assertThrows(TicTacToeException.class, () -> {
+            gameService.addPlayerToGame(gameId);
+        });
+
+        assertTrue(exception.getMessage().contains("Given gameId: " + gameId + " has already a player2 defined:"));
     }
 }
