@@ -116,4 +116,19 @@ public class GameServiceTest {
         GameMove gameMove = new GameMove(p1Id, 0, 0);
         assertTrue(gameService.isNextMoveValid(gameId, gameMove));
     }
+
+    @Test
+    public void isNextMoveValid_firstMove_game_doesnt_exist() {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.empty());
+
+        GameMove gameMove = new GameMove(p1Id, 0, 0);
+        Exception exception = assertThrows(TicTacToeException.class, () -> {
+            gameService.isNextMoveValid(gameId, gameMove);
+        });
+
+        assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
+    }
+
 }
