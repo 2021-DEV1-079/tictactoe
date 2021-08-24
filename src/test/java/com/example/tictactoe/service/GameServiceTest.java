@@ -3,6 +3,7 @@ package com.example.tictactoe.service;
 import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
+import com.example.tictactoe.domain.model.GameMove;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -104,5 +105,15 @@ public class GameServiceTest {
         });
 
         assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
+    }
+
+    @Test
+    public void isNextMoveValid_firstMove_game_exists_valid_positions() {
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1Id)));
+
+        GameMove gameMove = new GameMove(p1Id, 0, 0);
+        assertTrue(gameService.isNextMoveValid(gameId, gameMove));
     }
 }

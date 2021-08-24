@@ -3,6 +3,7 @@ package com.example.tictactoe.service;
 import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
+import com.example.tictactoe.domain.model.GameMove;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,5 +37,9 @@ public class GameService {
         } else {
             throw new TicTacToeException("No game associated with given gameId: " + gameId);
         }
+    }
+
+    public boolean isNextMoveValid(UUID gameId, GameMove gameMove) {
+        return false;
     }
 }
