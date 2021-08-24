@@ -296,4 +296,31 @@ public class GameServiceTest {
         assertEquals(GameStatus.running, game.getStatus());
     }
 
+    @Test
+    public void getStatus_is_won_by_player1_horizontal() throws TicTacToeException {
+
+        UUID gameId = UUID.randomUUID();
+        UUID p1Id = UUID.randomUUID();
+        Game game = new Game(gameId, p1Id);
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(game));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+        game = gameService.addPlayerToGame(gameId);
+        var p2Id = game.getPlayerTwoId();
+
+        GameMove p1m1 = new GameMove(p1Id, 0, 0);
+        GameMove p1m2 = new GameMove(p1Id, 1, 0);
+        GameMove p1m3 = new GameMove(p1Id, 2, 0);
+
+        GameMove p2m1 = new GameMove(p2Id, 0, 1);
+        GameMove p2m2 = new GameMove(p2Id, 1, 1);
+
+        game = gameService.play(gameId, p1m1);
+        game = gameService.play(gameId, p2m1);
+        game = gameService.play(gameId, p1m2);
+        game = gameService.play(gameId, p2m2);
+        game = gameService.play(gameId, p1m3);
+
+        assertEquals(GameStatus.p1Won, game.getStatus());
+    }
+
 }
