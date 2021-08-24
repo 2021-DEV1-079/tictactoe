@@ -1,8 +1,9 @@
 package com.example.tictactoe.domain.model;
 
+import com.example.tictactoe.domain.TicTacToeException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class Game {
@@ -11,11 +12,16 @@ public class Game {
     private UUID playerOneId;
     private UUID playerTwoId;
     private List<GameMove> movesHistory = new ArrayList<>();
-
+    private UUID[][] board;
 
     public Game(UUID id, UUID playerOneId) {
+        this(id, playerOneId, 3, 3);
+    }
+
+    public Game(UUID id, UUID playerOneId, int width, int height) {
         this.id = id;
         this.playerOneId = playerOneId;
+        board = new UUID[width][height];
     }
 
     public UUID getGameId() {
@@ -36,5 +42,15 @@ public class Game {
 
     public void setPlayerTwoId(UUID playerTwoId) {
         this.playerTwoId = playerTwoId;
+    }
+
+    public void playMove(GameMove gameMove) throws TicTacToeException {
+        if(gameMove.getX() >= 0 && gameMove.getX() < board[0].length && gameMove.getY() >= 0 && gameMove.getX() < board.length){
+            this.movesHistory.add(gameMove);
+            board[gameMove.getX()][gameMove.getY()] = gameMove.getAssociatedPlayerId();
+        }else {
+            throw new TicTacToeException("gameMove " + gameMove + " doesn't fit on the board.");
+        }
+
     }
 }

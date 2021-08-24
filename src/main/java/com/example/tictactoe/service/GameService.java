@@ -56,7 +56,9 @@ public class GameService {
         return gameMove.getX() < 0 || appConfig.getWidth() <= gameMove.getX() || gameMove.getY() < 0 || appConfig.getHeight() <= gameMove.getY();
     }
 
-    public Game play(UUID gameId, GameMove gameMove) {
-        return null;
+    public Game play(UUID gameId, GameMove gameMove) throws TicTacToeException {
+        var game = getGame(gameId);
+        game.playMove(gameMove);
+        return gameDao.save(game);
     }
 }
