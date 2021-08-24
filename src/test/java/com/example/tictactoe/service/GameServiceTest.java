@@ -1,15 +1,13 @@
 package com.example.tictactoe.service;
 
+import com.example.tictactoe.config.AppConfig;
 import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +23,9 @@ public class GameServiceTest {
 
     @Mock
     private GameDao gameDao;
+
+    @Spy
+    private AppConfig appConfig;
 
     @Autowired
     @InjectMocks

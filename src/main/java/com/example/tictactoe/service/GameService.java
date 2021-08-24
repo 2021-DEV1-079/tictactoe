@@ -1,5 +1,6 @@
 package com.example.tictactoe.service;
 
+import com.example.tictactoe.config.AppConfig;
 import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
@@ -12,9 +13,12 @@ import java.util.UUID;
 @Service
 public class GameService {
     private final GameDao gameDao;
+    private AppConfig appConfig;
 
-    public GameService(GameDao gameDao) {
+
+    public GameService(GameDao gameDao, AppConfig appConfig) {
         this.gameDao = gameDao;
+        this.appConfig = appConfig;
     }
 
     public Game createNewGame() {
@@ -40,8 +44,15 @@ public class GameService {
     }
 
     public boolean isNextMoveValid(UUID gameId, GameMove gameMove) throws TicTacToeException {
+        if (arePositionsInvalid(gameMove)) {
+            return false;
+        }
         var game = getGame(gameId);
         return gameMove.getAssociatedPlayerId().equals(game.getPlayerOneId());
 
+    }
+
+    private boolean arePositionsInvalid(GameMove gameMove) {
+        return appConfig.getWidth() <= gameMove.getX();
     }
 }
