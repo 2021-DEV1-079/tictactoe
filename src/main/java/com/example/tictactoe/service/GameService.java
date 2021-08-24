@@ -51,11 +51,15 @@ public class GameService {
         if (game.getMovesHistory().isEmpty()) {
             return gameMove.getAssociatedPlayerId().equals(game.getPlayerOneId());
         }
-        return isRightPlayer(gameMove, game);
+        return isRightPlayer(gameMove, game) && positionIsEmpty(gameMove, game);
     }
 
     private boolean isRightPlayer(GameMove gameMove, Game game) {
         return game.getMovesHistory().get(game.getMovesHistory().size() - 1).getAssociatedPlayerId() != gameMove.getAssociatedPlayerId();
+    }
+
+    private boolean positionIsEmpty(GameMove gameMove, Game game) {
+        return game.getMovesHistory().stream().noneMatch(alreadyPlayedMove -> alreadyPlayedMove.getX() == gameMove.getX() && alreadyPlayedMove.getY() == gameMove.getY());
     }
 
     private boolean arePositionsInvalid(GameMove gameMove) {
