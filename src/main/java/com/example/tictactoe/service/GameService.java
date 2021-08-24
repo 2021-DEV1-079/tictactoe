@@ -5,6 +5,7 @@ import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
+import com.example.tictactoe.domain.model.GameStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class GameService {
             throw new TicTacToeException("Given gameId: " + gameId + " has already a player2 defined: " + game.getPlayerTwoId());
         }
         game.setPlayerTwoId(UUID.randomUUID());
+        game.setGameStatus(GameStatus.running);
         return gameDao.save(game);
     }
 
