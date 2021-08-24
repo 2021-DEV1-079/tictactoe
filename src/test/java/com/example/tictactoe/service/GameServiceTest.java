@@ -5,6 +5,7 @@ import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
+import com.example.tictactoe.domain.model.GameStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -260,4 +261,12 @@ public class GameServiceTest {
     }
 
 
+    @Test
+    public void getStatus_awaiting_second_player() {
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.createNewGame();
+
+        assertEquals(game.getStatus(), GameStatus.awaitingSecondPlayer);
+    }
 }

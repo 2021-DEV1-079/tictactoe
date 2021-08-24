@@ -53,4 +53,9 @@ public class Game {
         }
 
     }
+
+    public GameStatus getStatus() {
+        return null;
+    }
+
 }
