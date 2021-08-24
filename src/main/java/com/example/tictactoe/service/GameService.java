@@ -17,4 +17,8 @@ public class GameService {
     public Game createNewGame() {
         return gameDao.save(new Game(UUID.randomUUID(), UUID.randomUUID()));
     }
+
+    public Game addPlayerToGame(UUID gameId) {
+        return null;
+    }
 }

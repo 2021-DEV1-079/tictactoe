@@ -11,10 +11,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,5 +65,17 @@ public class GameServiceTest {
         Game game = gameService.createNewGame();
 
         assertTrue(game.getMovesHistory().isEmpty());
+    }
+
+    @Test
+    public void addPlayer_adds_palyer_to_valid_game() {
+        UUID gameId = UUID.randomUUID();
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.addPlayerToGame(gameId);
+
+        Pattern pattern = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$");
+        assertNotNull(game.getPlayerTwoId());
+        assertTrue(pattern.asPredicate().test(game.getPlayerTwoId().toString()));
     }
 }
