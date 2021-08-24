@@ -56,4 +56,13 @@ public class GameServiceTest {
 
         assertNull(game.getPlayerTwoId());
     }
+
+    @Test
+    public void creates_valid_initial_game_moves_is_empty() {
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.createNewGame();
+
+        assertTrue(game.getMovesHistory().isEmpty());
+    }
 }
