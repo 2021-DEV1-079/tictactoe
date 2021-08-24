@@ -93,4 +93,16 @@ public class GameServiceTest {
 
         assertTrue(exception.getMessage().contains("Given gameId: " + gameId + " has already a player2 defined:"));
     }
+
+    @Test
+    public void addPlayer_throws_exception_no_game_found_given_id() {
+        UUID gameId = UUID.randomUUID();
+        Mockito.when(gameDao.getById(gameId)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(TicTacToeException.class, () -> {
+            gameService.addPlayerToGame(gameId);
+        });
+
+        assertTrue(exception.getMessage().contains("No game associated with given gameId: " + gameId));
+    }
 }
