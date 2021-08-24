@@ -48,8 +48,14 @@ public class GameService {
             return false;
         }
         var game = getGame(gameId);
-        return gameMove.getAssociatedPlayerId().equals(game.getPlayerOneId());
+        if (game.getMovesHistory().isEmpty()) {
+            return gameMove.getAssociatedPlayerId().equals(game.getPlayerOneId());
+        }
+        return isRightPlayer(gameMove, game);
+    }
 
+    private boolean isRightPlayer(GameMove gameMove, Game game) {
+        return game.getMovesHistory().get(game.getMovesHistory().size() - 1).getAssociatedPlayerId() != gameMove.getAssociatedPlayerId();
     }
 
     private boolean arePositionsInvalid(GameMove gameMove) {
