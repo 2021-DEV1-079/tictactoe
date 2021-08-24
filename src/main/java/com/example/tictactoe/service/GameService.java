@@ -58,6 +58,9 @@ public class GameService {
 
     public Game play(UUID gameId, GameMove gameMove) throws TicTacToeException {
         var game = getGame(gameId);
+        if (game.getPlayerTwoId() == null) {
+            throw new TicTacToeException("Still awaiting second player.");
+        }
         game.playMove(gameMove);
         return gameDao.save(game);
     }
