@@ -267,6 +267,17 @@ public class GameServiceTest {
 
         Game game = gameService.createNewGame();
 
-        assertEquals(game.getStatus(), GameStatus.awaitingSecondPlayer);
+        assertEquals(GameStatus.awaitingSecondPlayer, game.getStatus());
+    }
+
+    @Test
+    public void getStatus_is_running_after_player2_joined() throws TicTacToeException {
+        UUID gameId = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, UUID.randomUUID())));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        Game game = gameService.addPlayerToGame(gameId);
+
+        assertEquals(GameStatus.running, game.getStatus());
     }
 }
