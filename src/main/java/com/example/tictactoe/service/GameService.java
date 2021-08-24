@@ -53,6 +53,6 @@ public class GameService {
     }
 
     private boolean arePositionsInvalid(GameMove gameMove) {
-        return gameMove.getX() < 0 || appConfig.getWidth() <= gameMove.getX();
+        return gameMove.getX() < 0 || appConfig.getWidth() <= gameMove.getX() || gameMove.getY() < 0 || appConfig.getHeight() <= gameMove.getY();
     }
 }
