@@ -70,6 +70,7 @@ public class GameServiceTest {
     @Test
     public void addPlayer_adds_palyer_to_valid_game() {
         UUID gameId = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, UUID.randomUUID())));
         Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
 
         Game game = gameService.addPlayerToGame(gameId);

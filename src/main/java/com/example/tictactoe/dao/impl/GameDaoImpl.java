@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -17,5 +18,10 @@ public class GameDaoImpl implements GameDao {
     public Game save(Game game) {
         simpleStorage.put(game.getGameId(), game);
         return game;
+    }
+
+    @Override
+    public Optional<Game> getById(UUID gameId) {
+        return Optional.ofNullable(simpleStorage.get(gameId));
     }
 }

@@ -33,4 +33,8 @@ public class Game {
     public List<GameMove> getMovesHistory() {
         return movesHistory;
     }
+
+    public void setPlayerTwoId(UUID playerTwoId) {
+        this.playerTwoId = playerTwoId;
+    }
 }

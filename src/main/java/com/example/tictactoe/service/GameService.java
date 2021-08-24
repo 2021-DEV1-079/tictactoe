@@ -19,6 +19,12 @@ public class GameService {
     }
 
     public Game addPlayerToGame(UUID gameId) {
-        return null;
+        var game = getGame(gameId);
+        game.setPlayerTwoId(UUID.randomUUID());
+        return gameDao.save(game);
+    }
+
+    private Game getGame(UUID gameId){
+        return gameDao.getById(gameId).get();
     }
 }
