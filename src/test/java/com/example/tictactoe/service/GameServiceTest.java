@@ -448,4 +448,15 @@ public class GameServiceTest {
 
         assertEquals(GameStatus.draw, game.getStatus());
     }
+
+    @Test
+    public void getGamestate_next_player_is_first_when_game_ready() throws TicTacToeException {
+        UUID gameId = UUID.randomUUID();
+        UUID p1 = UUID.randomUUID();
+        Mockito.when(gameDao.getById(any())).thenReturn(Optional.of(new Game(gameId, p1)));
+        Mockito.when(gameDao.save(any())).then(AdditionalAnswers.returnsFirstArg());
+        gameService.addPlayerToGame(gameId);
+
+        assertEquals(gameService.getGameState(gameId).getNextPlayer(), p1);
+    }
 }

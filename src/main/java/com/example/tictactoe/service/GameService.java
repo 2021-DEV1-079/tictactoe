@@ -5,6 +5,7 @@ import com.example.tictactoe.dao.GameDao;
 import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
+import com.example.tictactoe.domain.model.GameState;
 import com.example.tictactoe.domain.model.GameStatus;
 import org.springframework.stereotype.Service;
 
@@ -198,5 +199,9 @@ public class GameService {
             x++;
         }
         return playerHasWon;
+    }
+
+    public GameState getGameState(UUID gameId) {
+        return null;
     }
 }
