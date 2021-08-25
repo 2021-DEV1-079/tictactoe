@@ -62,4 +62,18 @@ public class GameMapperTest {
 
     }
 
+    @Test
+    public void test_mapping_gameStateToGameStateDto_status(){
+        UUID playerOneId = UUID.randomUUID();
+        Game game = new Game(UUID.randomUUID(), playerOneId);
+        game.setPlayerTwoId(UUID.randomUUID());
+        game.setGameStatus(GameStatus.running);
+        GameState gameState = new GameState(game);
+
+        GameStateDto gameStateDto = gameMapper.gameStateToGameStateDto(gameState);
+
+        assertEquals(game.getStatus(), gameStateDto.getStatus());
+
+    }
+
 }

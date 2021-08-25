@@ -19,6 +19,6 @@ public class GameMapper {
     }
 
     public GameStateDto gameStateToGameStateDto(GameState gameState) {
-        return null;
+        return new GameStateDto(gameState.getNextPlayer());
     }
 }
