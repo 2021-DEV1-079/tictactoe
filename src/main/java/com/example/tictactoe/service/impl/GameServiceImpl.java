@@ -7,6 +7,7 @@ import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
 import com.example.tictactoe.domain.model.GameState;
 import com.example.tictactoe.domain.model.GameStatus;
+import com.example.tictactoe.service.FormattingService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,11 +17,13 @@ import java.util.UUID;
 public class GameServiceImpl implements com.example.tictactoe.service.GameService {
     private final GameDao gameDao;
     private AppConfig appConfig;
+    private FormattingService formattingService;
 
 
-    public GameServiceImpl(GameDao gameDao, AppConfig appConfig) {
+    public GameServiceImpl(GameDao gameDao, AppConfig appConfig, FormattingService formattingService) {
         this.gameDao = gameDao;
         this.appConfig = appConfig;
+        this.formattingService = formattingService;
     }
 
     @Override
@@ -209,6 +212,6 @@ public class GameServiceImpl implements com.example.tictactoe.service.GameServic
     @Override
     public GameState getGameState(UUID gameId) throws TicTacToeException {
         var game = getGame(gameId);
-        return new GameState(game);
+        return new GameState(game, formattingService.format(game.getBoard(), game.getPlayerOneId(), ".", "x", "o"));
     }
 }

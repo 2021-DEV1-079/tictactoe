@@ -27,6 +27,9 @@ public class GameServiceTest {
     @Mock
     private GameDao gameDao;
 
+    @Mock
+    private FormattingService formattingService;
+
     @Spy
     private AppConfig appConfig;
 

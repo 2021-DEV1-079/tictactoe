@@ -50,7 +50,7 @@ public class GameMapperTest {
         Game game = new Game(UUID.randomUUID(), playerOneId);
         game.setPlayerTwoId(UUID.randomUUID());
         game.setGameStatus(GameStatus.running);
-        GameState gameState = new GameState(game);
+        GameState gameState = new GameState(game, null);
 
         GameStateDto gameStateDto = gameMapper.gameStateToGameStateDto(gameState);
 
@@ -64,7 +64,7 @@ public class GameMapperTest {
         Game game = new Game(UUID.randomUUID(), playerOneId);
         game.setPlayerTwoId(UUID.randomUUID());
         game.setGameStatus(GameStatus.running);
-        GameState gameState = new GameState(game);
+        GameState gameState = new GameState(game, null);
 
         GameStateDto gameStateDto = gameMapper.gameStateToGameStateDto(gameState);
 
