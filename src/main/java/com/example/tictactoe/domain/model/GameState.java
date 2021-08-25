@@ -4,8 +4,11 @@ import java.util.UUID;
 
 public class GameState {
     private UUID nextPlayer;
+    private GameStatus status;
+
 
     public GameState(Game game) {
+        this.status = game.getStatus();
         if (game.getStatus() == GameStatus.running) {
             if(game.getMovesHistory().isEmpty()){
                 nextPlayer = game.getPlayerOneId();
@@ -17,5 +20,9 @@ public class GameState {
 
     public UUID getNextPlayer() {
         return nextPlayer;
+    }
+
+    public GameStatus getStatus() {
+        return status;
     }
 }

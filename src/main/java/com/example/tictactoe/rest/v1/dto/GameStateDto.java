@@ -7,9 +7,11 @@ import java.util.UUID;
 
 public class GameStateDto {
 
+    private GameStatus status;
     private UUID nextPlayer;
 
-    public GameStateDto(UUID nextPlayer) {
+    public GameStateDto(GameStatus status, UUID nextPlayer) {
+        this.status = status;
         this.nextPlayer = nextPlayer;
     }
 
@@ -22,6 +24,10 @@ public class GameStateDto {
     }
 
     public GameStatus getStatus() {
-        return null;
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
     }
 }

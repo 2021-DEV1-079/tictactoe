@@ -38,7 +38,7 @@ public class Game {
     }
 
     public List<GameMove> getMovesHistory() {
-        return movesHistory;
+        return List.copyOf(movesHistory);
     }
 
     public void setPlayerTwoId(UUID playerTwoId) {
