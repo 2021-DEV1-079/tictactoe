@@ -13,6 +13,6 @@ public class GameMapper {
     }
 
     public GameMove gameMoveDtoToGameMove(GameMoveDto gameMoveDto) {
-        return null;
+        return new GameMove(gameMoveDto.getPlayerId(), gameMoveDto.getX(), gameMoveDto.getY());
     }
 }
