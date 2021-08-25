@@ -23,7 +23,7 @@ public class FormattingServiceTest {
     public void test_formatting_emptyBoard() {
         UUID[][] board = new UUID[3][3];
 
-        var formatted = formattingService.format(board, UUID.randomUUID(), ".", ".");
+        var formatted = formattingService.format(board, UUID.randomUUID(), ".", ".", "o");
 
         assertEquals("...", formatted.get(0));
         assertEquals("...", formatted.get(1));
@@ -36,11 +36,25 @@ public class FormattingServiceTest {
         UUID p1Id = UUID.randomUUID();
         board[0][0] = p1Id;
 
-        var formatted = formattingService.format(board, p1Id, ".", "x");
+        var formatted = formattingService.format(board, p1Id, ".", "x", "o");
 
         assertEquals("x..", formatted.get(0));
         assertEquals("...", formatted.get(1));
         assertEquals("...", formatted.get(2));
+    }
+
+    @Test
+    public void test_formatting_player1_player2_played() {
+        UUID[][] board = new UUID[3][3];
+        UUID p1Id = UUID.randomUUID();
+        board[0][0] = p1Id;
+        board[2][2] = UUID.randomUUID();
+
+        var formatted = formattingService.format(board, p1Id, ".", "x", "o");
+
+        assertEquals("x..", formatted.get(0));
+        assertEquals("...", formatted.get(1));
+        assertEquals("..o", formatted.get(2));
     }
 
 }
