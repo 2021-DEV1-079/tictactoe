@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public class GameMapper {
     public PlayerCredentialsDto toPlayerCredentialsDto(Game game, UUID playerId) {
-        return null;
+        return new PlayerCredentialsDto(game.getGameId(), playerId);
     }
 }

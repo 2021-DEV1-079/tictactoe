@@ -18,9 +18,11 @@ public class GameMapperTest {
     public void test_mapping_game_to_playerCredentialsDto(){
         Game game = new Game(UUID.randomUUID(), UUID.randomUUID());
 
-        PlayerCredentialsDto pc = gameMapper.toPlayerCredentialsDto(game, game.getPlayerOneId());
+        UUID playerOneId = game.getPlayerOneId();
+        PlayerCredentialsDto pc = gameMapper.toPlayerCredentialsDto(game, playerOneId);
 
         assertEquals(game.getGameId(), pc.getGameId());
+        assertEquals(playerOneId, pc.getPlayerId());
     }
 
 }
