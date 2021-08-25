@@ -6,6 +6,7 @@ import com.example.tictactoe.domain.TicTacToeException;
 import com.example.tictactoe.domain.model.Game;
 import com.example.tictactoe.domain.model.GameMove;
 import com.example.tictactoe.domain.model.GameStatus;
+import com.example.tictactoe.service.impl.GameServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -31,7 +32,7 @@ public class GameServiceTest {
 
     @Autowired
     @InjectMocks
-    private GameService gameService;
+    private GameServiceImpl gameService;
 
     @Test
     public void create_valid_initial_game_id_is_UUID() {
