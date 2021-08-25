@@ -13,7 +13,8 @@ public class GameState {
             if(game.getMovesHistory().isEmpty()){
                 nextPlayer = game.getPlayerOneId();
             }else {
-                nextPlayer = game.getMovesHistory().get(game.getMovesHistory().size() - 1).getAssociatedPlayerId() == game.getPlayerOneId() ? game.getPlayerTwoId() : game.getPlayerOneId();
+                UUID lastMovePlayerID = game.getMovesHistory().get(game.getMovesHistory().size() - 1).getAssociatedPlayerId();
+                nextPlayer = game.getPlayerOneId().equals(lastMovePlayerID)  ? game.getPlayerTwoId() : game.getPlayerOneId();
             }
         }
     }

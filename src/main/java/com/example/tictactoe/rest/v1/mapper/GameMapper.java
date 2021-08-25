@@ -6,9 +6,11 @@ import com.example.tictactoe.domain.model.GameState;
 import com.example.tictactoe.rest.v1.dto.GameMoveDto;
 import com.example.tictactoe.rest.v1.dto.GameStateDto;
 import com.example.tictactoe.rest.v1.dto.PlayerCredentialsDto;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class GameMapper {
     public PlayerCredentialsDto toPlayerCredentialsDto(Game game, UUID playerId) {
         return new PlayerCredentialsDto(game.getGameId(), playerId);
