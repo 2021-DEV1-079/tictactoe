@@ -23,9 +23,22 @@ public class FormattingServiceTest {
     public void test_formatting_emptyBoard() {
         UUID[][] board = new UUID[3][3];
 
-        var formatted = formattingService.format(board, ".");
+        var formatted = formattingService.format(board, UUID.randomUUID(), ".", ".");
 
         assertEquals("...", formatted.get(0));
+        assertEquals("...", formatted.get(1));
+        assertEquals("...", formatted.get(2));
+    }
+
+    @Test
+    public void test_formatting_player1_only_played() {
+        UUID[][] board = new UUID[3][3];
+        UUID p1Id = UUID.randomUUID();
+        board[0][0] = p1Id;
+
+        var formatted = formattingService.format(board, p1Id, ".", "x");
+
+        assertEquals("x..", formatted.get(0));
         assertEquals("...", formatted.get(1));
         assertEquals("...", formatted.get(2));
     }

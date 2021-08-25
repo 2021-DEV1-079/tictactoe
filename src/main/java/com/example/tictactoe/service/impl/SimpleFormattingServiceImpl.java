@@ -10,7 +10,7 @@ import java.util.UUID;
 @Service
 public class SimpleFormattingServiceImpl implements FormattingService {
     @Override
-    public List<String> format(UUID[][] board, String emptyRepresentation) {
+    public List<String> format(UUID[][] board, UUID p1Id, String emptyRepresentation, String p1Representation) {
         List<String> formatted = new ArrayList<>();
         for (UUID[] uuids : board) {
             StringBuilder sb = new StringBuilder();
